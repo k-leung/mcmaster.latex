@@ -1,0 +1,114 @@
+\documentclass[12pt]{report}
+\usepackage{jrl_thesis}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{float}
+
+\input{frontmatter/definitions}
+%=========================================================================%
+%	KL:  Include packages I want											%
+%======																		%
+\usepackage{amsmath}%														%
+\usepackage{hyperref}%														%
+\usepackage{lmodern}%														%
+\usepackage{alltt}%															%
+\usepackage{subfig}%														%
+\usepackage{graphicx}%														%
+\usepackage{amsmath}%														%
+\hypersetup{citebordercolor = 0.77 0.87 0.97}%								%
+\hypersetup{linkbordercolor = 0.95 0.90 0.90}%								%
+\hypersetup{pdfborder = 0 0 0.5}%											%
+\usepackage{array}%															%
+\setcounter{secnumdepth}{3}%												%
+\setcounter{tocdepth}{3}%													%
+%=========================================================================%
+
+%=========================================================================%
+%	KL:  Set up spacing to my tastes										%
+%======																		%
+\setlength{\parskip}{1em}%													%
+\setlength{\overfullrule}{2pt}%
+\hbadness=10001
+%=========================================================================%
+\begin{document}
+\newcolumntype{c}[1]{>{\centering\hspace{0pt}}p{#1}}
+
+%=========================================================================%
+%	KL:  Define shortcut commands for table line spacing					%
+%======																		%
+\newcommand{\tn}{\tabularnewline}%											%
+\newcommand{\tnhr}{\tabularnewline \hline}%								    %
+%=========================================================================%
+
+
+\beforepreface
+  \include{frontmatter/dedic}
+  
+\afterpreface
+
+%=========================================================================%
+%	KL: Change \chapter command to add an entry into the LoT and LoF for  %
+%	each chapter.															%
+%																			%
+%   Adopted from:  http://texblog.org/tag/addcontentsline/					%
+%======																		%
+\let\oldchapter\chapter	%													%
+\newcommand{\newchapter}[1]{%												%
+    \chapter{#1}%															%
+    \addcontentsline{lof}{chapter}{%										%
+		#1 \vspace{10pt}%													%
+    }%																		%
+    \addcontentsline{lot}{chapter}{%										%
+        #1 \vspace{10pt}%													%
+    }%																		%
+}%																			%
+%=========================================================================%
+
+%=========================================================================%
+%	KL: Add a new \newappendix command to add an entries 					%
+%		into the LoT and LoF for the appendices							    %
+%																			%
+%   Adopted from:  http://texblog.org/tag/addcontentsline/					%
+%======																		%
+\newcommand{\newappendix}[1]{%												%
+    \chapter{#1}%															%
+	\addcontentsline{lof}{chapter}{%										%
+	    Appendix~\thechapter : #1 \vspace{10pt}%							%
+    }%																		%
+    \addcontentsline{lot}{chapter}{%										%
+        Appendix~\thechapter : #1 \vspace{10pt}%							%
+    }%																		%
+}%																			%
+%=========================================================================%
+
+%=========================================================================%
+%	KL: Define a new macro: \etal											%
+%			Just italic et allia											%
+%======																		%
+\newcommand{\etal}{\textit{et al.~}}%										%
+%=========================================================================%
+
+  \include{Chapter1/chapter1}
+  \include{Chapter2/chapter2}    
+  
+
+%==========================================================================
+%	KL: Change spacing in bibliography										%
+%======																		%
+\let\oldbibliography\thebibliography%										%
+\renewcommand{\thebibliography}[1]{%										%	
+	\oldbibliography{#1}%													%
+	\setlength{\itemsep}{0pt}%												%
+	\setlength{\parskip}{10pt}%												%
+}%																			%
+%=========================================================================%
+
+\begin{spacing}{1.0}
+	\bibliographystyle{ieeetr}
+	\bibliography{references}
+\end{spacing}
+\appendix
+\include{AppendixA/AppA}
+
+\label{NumDocumentPages}
+\end{document}
